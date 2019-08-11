@@ -1,14 +1,27 @@
 package com.example.androidbase.pagination
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.androidbase.R
-import dagger.android.DaggerActivity
+import com.example.androidbase.common.presentationLayer.BaseActivity
+import javax.inject.Inject
 
-class DataActivity : DaggerActivity() {
+class DataActivity : BaseActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_data)
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    lateinit var dataViewModel: DataViewModel
+
+    override fun getContentResource(): Int = R.layout.activity_data
+
+    override fun init(state: Bundle?) {
+        dataViewModel =  ViewModelProvider(this, viewModelFactory).get(DataViewModel::class.java)
+        dataViewModel.getLiveData().observe(this, Observer {
+            Log.d("DATA", it.dataList.toString())
+        })
     }
+
 }

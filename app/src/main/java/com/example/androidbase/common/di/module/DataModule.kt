@@ -12,9 +12,7 @@ class DataModule {
 
     @Provides
     @Reusable
-    fun provideProductsDatabase(context: Context): LocalDatabase {
-        return LocalDatabase.getInstance(context)
-    }
+    fun provideProductsDatabase(context: Context): LocalDatabase = LocalDatabase.getInstance(context)
 
     @Provides
     fun provideProductDAO(localDatabase: LocalDatabase): DataDao = localDatabase.dataDao()

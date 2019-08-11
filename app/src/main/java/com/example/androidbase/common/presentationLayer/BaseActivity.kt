@@ -3,6 +3,7 @@ package com.example.androidbase.common.presentationLayer
 import android.os.Bundle
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import dagger.android.AndroidInjection
 
 abstract class BaseActivity : AppCompatActivity() {

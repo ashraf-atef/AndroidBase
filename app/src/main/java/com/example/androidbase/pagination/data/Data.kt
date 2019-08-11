@@ -1,4 +1,4 @@
-package com.example.androidbase.pagination.data.local
+package com.example.androidbase.pagination.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
