@@ -8,6 +8,6 @@ import io.reactivex.functions.Consumer
 import javax.inject.Inject
 
 @Module
-abstract class DataActivityModule{
+abstract class DataActivityModule {
 
 }

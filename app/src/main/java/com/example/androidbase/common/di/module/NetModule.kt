@@ -10,6 +10,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.Reusable
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -31,6 +32,7 @@ abstract class NetModule {
         @JvmStatic
         fun providesOkHttpClient(): OkHttpClient {
             return OkHttpClient.Builder()
+                .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                 .build()
         }
 
@@ -47,11 +49,12 @@ abstract class NetModule {
         @Reusable
         @JvmStatic
         fun providesRetrofit(
-            @Named(API_URL_KEY) apiUrl: String, gson: Gson
+            @Named(API_URL_KEY) apiUrl: String, gson: Gson, okHttpClient: OkHttpClient
         ): Retrofit {
             return Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(okHttpClient)
                 .baseUrl(apiUrl)
                 .build()
         }
