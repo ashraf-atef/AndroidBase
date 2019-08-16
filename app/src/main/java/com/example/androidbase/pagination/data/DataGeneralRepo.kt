@@ -1,6 +1,5 @@
 package com.example.androidbase.pagination.data
 
-import com.example.androidbase.common.dataLayer.remote.error.UnknownThrowable
 import com.example.androidbase.pagination.data.errors.NoDataAvailableThrowable
 import com.example.androidbase.pagination.data.errors.NoMoreOfflineDataThrowable
 import com.example.androidbase.pagination.data.local.DateLocalRepo

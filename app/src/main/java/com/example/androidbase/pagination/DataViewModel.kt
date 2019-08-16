@@ -10,8 +10,7 @@ import io.reactivex.exceptions.CompositeException
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class DataViewModel
-@Inject constructor(private val dataGeneralRepo: DataGeneralRepo) : BaseViewModel<DataState>() {
+class DataViewModel @Inject constructor(private val dataGeneralRepo: DataGeneralRepo) : BaseViewModel<DataState>() {
 
     init {
         loadData()
@@ -26,19 +25,7 @@ class DataViewModel
     fun loadMore() {
         postState(
             getCurrentState().copy(
-                loadingFromScratch = false,
-                loadMore = true,
-                error = null
-            )
-        )
-        loadData()
-    }
-
-    fun retry() {
-        postState(
-            getCurrentState().copy(
-                loadingFromScratch = false,
-                loadMore = true,
+                loading = DataLoading.LOAD_MORE,
                 error = null
             )
         )
@@ -56,8 +43,7 @@ class DataViewModel
                     postState(
                         getCurrentState().copy(
                             dataList = newDataList,
-                            loadingFromScratch = false,
-                            loadMore = false,
+                            loading = null,
                             error = null
                         )
                     )
@@ -70,8 +56,7 @@ class DataViewModel
 
                     postState(
                         getCurrentState().copy(
-                            loadingFromScratch = false,
-                            loadMore = false,
+                            loading = null,
                             error = when (throwable) {
                                 is NoMoreOfflineDataThrowable -> DataErrors.NO_MORE_OFFLINE_DATA
                                 is NoDataAvailableThrowable -> DataErrors.NO_DATA_AVAILABLE
@@ -84,6 +69,6 @@ class DataViewModel
     }
 
     override fun getInitialState(): DataState {
-        return DataState(loadingFromScratch = true)
+        return DataState(loading = DataLoading.LOAD_FROM_SCRATCH)
     }
 }

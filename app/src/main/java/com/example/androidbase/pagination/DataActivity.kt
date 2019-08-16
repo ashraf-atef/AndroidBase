@@ -70,18 +70,22 @@ class DataActivity : BaseActivity(), DataAdapter.ItemClickListener {
                 dataAdapter.addRetryRow()
             }
 
-            if (loadingFromScratch) {
-                pb_loading.visibility = View.VISIBLE
-                endlessRecyclerViewOnScrollListener.restState()
-            } else
+            if (loading == null) {
                 pb_loading.visibility = View.INVISIBLE
-
-            if (loadMore)
-                dataAdapter.addLoadMoreRow()
+            } else {
+                when(loading) {
+                    null ->  pb_loading.visibility = View.INVISIBLE
+                    DataLoading.LOAD_FROM_SCRATCH -> {
+                        pb_loading.visibility = View.VISIBLE
+                        endlessRecyclerViewOnScrollListener.restState()
+                    }
+                    DataLoading.LOAD_MORE ->  dataAdapter.addLoadMoreRow()
+                }
+            }
         }
     }
 
     override fun onRetryClick() {
-        dataViewModel.retry()
+        dataViewModel.loadMore()
     }
 }
