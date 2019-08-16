@@ -1,8 +1,8 @@
 package com.example.androidbase.common.di.component
 
 import android.app.Application
-import com.example.androidbase.common.constants.API_URL_KEY
 import com.example.androidbase.common.application.BaseApplication
+import com.example.androidbase.common.constants.API_URL_KEY
 import com.example.androidbase.common.di.module.*
 import dagger.BindsInstance
 import dagger.Component
@@ -20,7 +20,8 @@ import javax.inject.Singleton
         NetModule::class,
         ViewModelModule::class,
         AppModule::class,
-        DataModule::class]
+        DataModule::class,
+        SchedulersModule::class]
 )
 interface AppComponent : AndroidInjector<DaggerApplication> {
 

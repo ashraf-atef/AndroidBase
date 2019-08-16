@@ -18,7 +18,7 @@ class DataGeneralRepo @Inject constructor(private val dataRemoteRepo: DateRemote
         page = 1
     }
 
-     fun getData(): Maybe<List<Data>> =
+    fun getData(): Maybe<List<Data>> =
         dataLocalRepo.getData(page)
             .flatMap {
                 if (it.isEmpty())
