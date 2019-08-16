@@ -20,7 +20,9 @@ class DataActivity : BaseActivity(), DataAdapter.ItemClickListener {
 
     lateinit var dataViewModel: DataViewModel
 
+    @Inject
     lateinit var dataAdapter: DataAdapter
+
     lateinit var endlessRecyclerViewOnScrollListener: EndlessRecyclerViewOnScrollListener
 
     override fun getContentResource(): Int = R.layout.activity_data
@@ -30,9 +32,6 @@ class DataActivity : BaseActivity(), DataAdapter.ItemClickListener {
         dataViewModel.getLiveData().observe(this, Observer {
             render(it)
         })
-
-        dataAdapter = DataAdapter()
-        dataAdapter.setItemClickListener(this)
 
         rv_data.setHasFixedSize(true)
         val linearLayoutManager = LinearLayoutManager(baseContext)

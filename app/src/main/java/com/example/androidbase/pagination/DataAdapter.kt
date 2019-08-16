@@ -11,9 +11,11 @@ import com.example.androidbase.common.presentationLayer.BaseDiffUtilCallback
 import com.example.androidbase.pagination.data.Data
 import kotlinx.android.synthetic.main.item_data.view.*
 import kotlinx.android.synthetic.main.item_retry.view.*
+import javax.inject.Inject
 
 
-class DataAdapter : RecyclerView.Adapter<DataAdapter.BaseViewHolder>() {
+class DataAdapter @Inject constructor(val itemClickListener: ItemClickListener)
+    : RecyclerView.Adapter<DataAdapter.BaseViewHolder>() {
 
     private val DATA_LAYOUT = R.layout.item_data
     private val LOAD_MORE_LAYOUT = R.layout.item_loader
@@ -23,7 +25,6 @@ class DataAdapter : RecyclerView.Adapter<DataAdapter.BaseViewHolder>() {
     private val diffUtilCallback: DataDiffCallback by lazy {
         DataDiffCallback()
     }
-    private lateinit var itemClickListener: ItemClickListener
 
     var loadMore: Boolean = false
     var error: Boolean = false
@@ -79,10 +80,6 @@ class DataAdapter : RecyclerView.Adapter<DataAdapter.BaseViewHolder>() {
         removeLoadAndRetryRows()
         error = true
         notifyItemInserted(list.size)
-    }
-
-    fun setItemClickListener(itemClickListener: ItemClickListener) {
-        this.itemClickListener = itemClickListener
     }
 
     abstract inner class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
